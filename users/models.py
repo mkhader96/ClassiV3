@@ -8,6 +8,8 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
+    phone_number = models.CharField(max_length=255,null=True)
+
     username = None
 
     USERNAME_FIELD = 'email'
@@ -15,10 +17,17 @@ class User(AbstractUser):
 
 class Student(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
-    phone_number = models.CharField(max_length=255,null=True)
 
 class Teacher(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
-    phone_number = models.CharField(max_length=255,null=True)
 
 
+class Class(models.Model):
+    category = models.CharField(max_length=255)
+    classname = models.CharField(max_length=255)
+    teacher_name = models.CharField(max_length=255)
+    teacher_email = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    available_times = models.CharField(max_length=255)
+    price = models.CharField(max_length=255)
+    description = models.TextField()

@@ -4,6 +4,11 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
 import jwt, datetime
+from .models import Class
+from .serializers import ClassSerializer
+from django.http import HttpResponse, JsonResponse
+
+
 
 
 # Create your views here.
@@ -54,7 +59,7 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithms='HS256')
+            payload = jwt.decode(token, 'secret', algorithm='HS256')
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
@@ -71,3 +76,16 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+class ClassView(APIView):
+    def get(self, request):
+        classes = Class.objects.all()
+        serializer = ClassSerializer(classes, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ClassSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
