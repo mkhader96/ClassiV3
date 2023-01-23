@@ -5,7 +5,7 @@ import jwt
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password','is_student','is_teacher']
+        fields = ['id', 'name', 'email', 'password','is_student','is_teacher', 'phone_number']
         extra_kwargs = {
         'password': {'write_only': True}
         }
@@ -17,22 +17,22 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         if validated_data.get('is_student'):
-            Student.objects.create(user=instance, phone_number=validated_data.get('phone_number'))
+            Student.objects.create(user=instance)
         elif validated_data.get('is_teacher'):
-            Teacher.objects.create(user=instance, phone_number=validated_data.get('phone_number'))
+            Teacher.objects.create(user=instance)
         return instance
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher']
+        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher', 'phone_number']
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher']
+        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher', 'phone_number']
 
 
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'category', 'classname', 'teacher_name','location', 'available_times', 'description']
+        fields = ['id', 'category', 'classname', 'teacher_name','teacher_email','location', 'available_times','price', 'description']
