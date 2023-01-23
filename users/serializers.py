@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Student, Teacher
+from .models import User, Student, Teacher,Class
 import jwt
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,3 +30,9 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher']
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
+        fields = ['id', 'category', 'classname', 'teacher_name','location', 'available_times', 'description']

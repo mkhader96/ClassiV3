@@ -22,3 +22,10 @@ class Teacher(models.Model):
     phone_number = models.CharField(max_length=255,null=True)
 
 
+class Class(models.Model):
+    category = models.CharField(max_length=255)
+    classname = models.CharField(max_length=255)
+    teacher_name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    available_times = models.CharField(max_length=255)
+    description = models.TextField()
