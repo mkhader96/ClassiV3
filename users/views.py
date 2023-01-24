@@ -98,3 +98,16 @@ class ClassDeleteView(APIView):
         class_ = get_object_or_404(Class, pk=pk)
         class_.delete()
         return Response(status=204)
+
+
+class ClassUpdateView(APIView):
+    def put(self, request, pk):
+        class_ = get_object_or_404(Class, pk=pk)
+        student_id = request.data.get("studentid")
+
+        if student_id in class_.students:
+            return Response("Student already added", status=200)
+        class_.students += f'{student_id},'
+        class_.save()
+        serializer = ClassSerializer(class_)
+        return Response("success")

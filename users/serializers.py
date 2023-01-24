@@ -36,3 +36,6 @@ class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ['id', 'category', 'classname', 'teacher_name','teacher_email','location', 'available_times','price', 'description']
+        students = serializers.CharField(default='', allow_blank=True)
+
+        
