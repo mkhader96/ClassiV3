@@ -35,7 +35,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'category', 'classname', 'teacher_name','teacher_email','location', 'available_times','price', 'description']
+        fields = ['id', 'category', 'classname', 'teacher_name','teacher_email','location', 'available_times','price', 'description','students']
         students = serializers.CharField(default='', allow_blank=True)
 
         
