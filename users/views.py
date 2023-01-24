@@ -111,3 +111,9 @@ class ClassUpdateView(APIView):
         class_.save()
         serializer = ClassSerializer(class_)
         return Response("success")
+    def delete(self, request, pk):
+        class_ = get_object_or_404(Class, pk=pk)
+        student_id = request.data.get("studentid")
+        class_.students = class_.students.replace(","f'{student_id}', '')
+        class_.save()
+        return Response("success")
