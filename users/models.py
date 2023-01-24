@@ -8,6 +8,10 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
+    role = models.CharField(max_length=20, choices=(
+        ('teacher', 'Teacher'),
+        ('student', 'Student'),
+    ))
     phone_number = models.CharField(max_length=255,null=True)
 
     username = None
