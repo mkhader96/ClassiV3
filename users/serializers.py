@@ -5,7 +5,7 @@ import jwt
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password','is_student','is_teacher', 'phone_number']
+        fields = ['id', 'name', 'email', 'password','is_student','is_teacher','role', 'phone_number']
         extra_kwargs = {
         'password': {'write_only': True}
         }
@@ -24,12 +24,12 @@ class UserSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher', 'phone_number']
+        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher','role', 'phone_number']
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher', 'phone_number']
+        fields = ['id', 'user', 'phone_number','email', 'password','is_student','is_teacher','role', 'phone_number']
 
 
 class ClassSerializer(serializers.ModelSerializer):

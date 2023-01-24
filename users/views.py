@@ -7,6 +7,8 @@ import jwt, datetime
 from .models import Class
 from .serializers import ClassSerializer
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
+
 
 
 
@@ -32,13 +34,14 @@ class LoginView(APIView):
 
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
-
+        if request.data.get('role') != user.role:
+                    raise AuthenticationFailed('Incorrect Role')
         payload = {
             'id': user.id,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
-
+        
         token = jwt.encode(payload, 'secret', algorithm='HS256')
 
         response = Response()
@@ -89,3 +92,9 @@ class ClassView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+class ClassDeleteView(APIView):
+    def delete(self, request, pk):
+        class_ = get_object_or_404(Class, pk=pk)
+        class_.delete()
+        return Response(status=204)

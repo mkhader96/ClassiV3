@@ -1,4 +1,4 @@
-from .views import RegisterView,LoginView,UserView,LogoutView,ClassView
+from .views import RegisterView,LoginView,UserView,LogoutView,ClassView,ClassDeleteView
 from django.urls import path
 
 
@@ -8,5 +8,6 @@ urlpatterns = [
     path('user', UserView.as_view()),
     path('logout', LogoutView.as_view()),
     path('class/', ClassView.as_view()),
+    path('class/delete/<int:pk>/', ClassDeleteView.as_view(), name='class-delete'),
 
 ]
